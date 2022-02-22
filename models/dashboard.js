@@ -1,5 +1,4 @@
 var moment = require('moment-timezone');
-const { data } = require('../../qftg-fund-manager/src/components/Chart/CustomLineChart');
 const { initSupabase } = require('../supabase-connect');
 
 let supabase = initSupabase();
