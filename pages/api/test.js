@@ -2,7 +2,7 @@ const {
   getPortfolio,
   printPortfolioNicely,
   fetchers,
-} = require('../../api/index');
+} = require('../../modules/sync/src/api/index');
 const data = require('../../testing/data');
 
 const {

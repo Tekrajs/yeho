@@ -47,13 +47,13 @@ export default function Home() {
         <code className={styles.code}>
           {`{
             "addresses": [
-              "0x9dcc35ae915926f7f5e8c624254d91f755d55b71"
+              "0xbc8d100e2c7c1d6bbefc3128bd5185d226a1976a","0x9dcc35ae915926f7f5e8c624254d91f755d55b71","0x7ba7f4773fa7890bad57879f0a1faa0edffb3520","0x741aa7cfb2c7bf2a1e7d4da2e3df6a56ca4131f3"
             ]
           }`}
         </code>
 
         <form method="post" action="/api/data" target="_blank">
-          <input type="hidden" name="addresses" id="fname" value={'["0x9dcc35ae915926f7f5e8c624254d91f755d55b71"]'} />
+          <input type="hidden" name="addresses" id="fname" value={'["0xbc8d100e2c7c1d6bbefc3128bd5185d226a1976a","0x9dcc35ae915926f7f5e8c624254d91f755d55b71","0x7ba7f4773fa7890bad57879f0a1faa0edffb3520","0x741aa7cfb2c7bf2a1e7d4da2e3df6a56ca4131f3"]'} />
           <button type="submit" name="dev" value="true">
             Try it out
           </button>
