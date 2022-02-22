@@ -26,7 +26,7 @@ async function sync(user_id) {
             othertokens,
             addresses,
         } = data;
-        let combineExchanges = false;
+        let combineExchanges = true;
 
         const {
             fetchBinanceContractBalances,
