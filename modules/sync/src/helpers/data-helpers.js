@@ -7,7 +7,7 @@ const formatReturnData = async (error, data, table) => {
 }
 
 const formatAccountData = async (error, data, table) => {
-    if (error) {
+    if (error || !data.length) {
         return null;
     }
 
