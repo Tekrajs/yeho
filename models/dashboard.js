@@ -99,7 +99,7 @@ const getPortfolioTotal = async (user_id) => {
  * @param {int} user_id
  * @returns json
  */
-const getPortfolioSnapshot = async (user_id, getFirstSnapshotOfDay = false ) => {
+const getPortfolioSnapshot = async (user_id, getFirstSnapshotOfDay = false) => {
     try {
         if (!user_id) {
             throw new Error('UserId not suppiled');
@@ -108,7 +108,7 @@ const getPortfolioSnapshot = async (user_id, getFirstSnapshotOfDay = false ) => 
         const table = 'QFG.PortfolioSnapshot';
         const sync_time = await getLastSyncTimestamp(user_id);
 
-        let query =  supabase
+        let query = supabase
             .from(table)
             .select('snapshot, timestamp')
             .eq('user_id', user_id)
@@ -116,7 +116,7 @@ const getPortfolioSnapshot = async (user_id, getFirstSnapshotOfDay = false ) => 
 
         if (!getFirstSnapshotOfDay) {
             query = query.eq('timestamp', sync_time)
-        } else  {
+        } else {
             let startOfDay = sync_time - (sync_time % 86400);
             query = query.gte('timestamp', startOfDay)
                 .lt('timestamp', sync_time)
@@ -140,7 +140,7 @@ const getPortfolioSnapshot = async (user_id, getFirstSnapshotOfDay = false ) => 
  * @param {int} user_id
  * @returns json
  */
-const getAllPortfolioSnapshot = async (user_id) => {
+const getAllPortfolioSnapshot = async (user_id, filter = false) => {
     try {
         if (!user_id) {
             throw new Error('UserId not suppiled');
@@ -149,16 +149,22 @@ const getAllPortfolioSnapshot = async (user_id) => {
         const table = 'QFG.PortfolioSnapshot';
         const sync_time = await getLastSyncTimestamp(user_id);
 
-        const { data, error } = await supabase
+        let query = supabase
             .from(table)
             .select('snapshot, timestamp')
             .eq('user_id', user_id)
             .not('timestamp', 'eq', sync_time)
 
+        if (filter && filter > 1) {
+            query = query.gte('timestamp', filter)
+        }
+
+        const { data, error } = await query
+
         if (error) {
             throw new Error('Error getting portfolio from database.');
         }
-
+        console.log(data);
         return data;
     } catch (e) {
         console.log(e);

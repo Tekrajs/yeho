@@ -1,5 +1,4 @@
-const { getOverview } = require('../../../controllers/dashboard');
-const { isUserAuthorized } = require('../../../helpers/user-auh');
+const { isUserAuthorized, isUserSuperAdmin } = require('../../../helpers/user-auh');
 
 export default async function handler(req, res) {
   let headers = req.headers;
@@ -10,11 +9,15 @@ export default async function handler(req, res) {
     return res.status(200).send('OK');
   }
 
-  if (!isUserAuthorized(token, user_id)) {
+  if (!await isUserAuthorized(token, user_id)) {
     return res.status(401).send('Not authorized');
   }
 
-  let portfolio = await getOverview(user_id);
+  let role = { role: 'authenticated' };
 
-  res.status(200).json(portfolio)
+  if (await isUserSuperAdmin(token, user_id)) {
+    role = { role: 'super_admin' };
+  }
+
+  res.status(200).json(role);
 }

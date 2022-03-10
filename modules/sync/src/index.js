@@ -67,6 +67,7 @@ async function sync(user_id) {
         console.error(e);
     }
 }
+sync('be5f11fd-ca4a-485b-b0f5-6160c3586f48');
 
 module.exports = {
     sync
